@@ -18,7 +18,7 @@ jobs:
   greet:
     runs-on: ubuntu-latest
     env:
-      target: ${{github.event.inputs.name}}${{'_target'}}
+      target: ${{github.event.inputs.name}}_target
     strategy:
       fail-fast: false
       matrix:
@@ -27,4 +27,4 @@ jobs:
     - name: Send greeting
       env:
         NAME: ${{ env[matrix.target] }}
-      run: echo "Hello ${{ env.NAME }}"
+      run: echo "Hello ${{ env.target }}"
