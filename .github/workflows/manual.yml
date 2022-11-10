@@ -17,9 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       target: ${{github.event.inputs.name}}${{'_target'}}
-
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJson('["one","two"]') }}
     steps:
     - name: Send greeting
       env:
-        NAME: ${{ env[env.target] }}
+        NAME: ${{ env[matrix.target] }}
       run: echo "Hello ${{ env.NAME }}"
