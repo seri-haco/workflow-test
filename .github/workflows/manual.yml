@@ -19,10 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       target: ${{github.event.inputs.name}}${{'_target'}}
+      matrix_string: ${{github.event.inputs.name}}${{}}
     strategy:
       fail-fast: false
       matrix:
-        target: ${{ fromJson('[' + '"one"' + ']') }}
+        target: ${{ fromJson(format('["{0}"]', github.event.inputs.name)) }}
     steps:
     - name: Send greeting
       env:
