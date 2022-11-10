@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [ ${{ github.event.inputs.name }} ] # ${{ fromJson('["one","two"]') }}
+        target: ${{ fromJson('[' + '"one"' + ']') }}
     steps:
     - name: Send greeting
       env:
