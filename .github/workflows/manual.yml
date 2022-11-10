@@ -3,6 +3,8 @@ name: test1
 env:
   one_target: one
   two_target: two
+  one: one1
+  two: two2
 
 on:
   workflow_dispatch:
