@@ -1,21 +1,25 @@
 name: test1
 
+env:
+  one_target: one
+  two_target: two
+
 on:
   workflow_dispatch:
     inputs:
       name:
         description: 'Person to greet'
-        default: 'World'
+        default: 'one'
         required: true
 
 jobs:
   greet:
     runs-on: ubuntu-latest
     env:
-      ONE: ${{github.event.inputs.name}}${{'-TARGET'}}
+      target: ${{github.event.inputs.name}}${{'_target'}}
 
     steps:
     - name: Send greeting
       env:
-        TWO: ${{env.ONE}}
-      run: echo "Hello ${{ env.TWO }}"
+        NAME: ${{ env[env.target] }}
+      run: echo "Hello ${{ env.NAME }}"
