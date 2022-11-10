@@ -11,10 +11,11 @@ on:
 jobs:
   greet:
     runs-on: ubuntu-latest
+    env:
+      ONE: ${{github.event.inputs.name}}${{'-TARGET'}}
 
     steps:
     - name: Send greeting
       env:
-        ONE: ${{github.event.inputs.name}}${{'-TARGET'}}
         TWO: ${{env.ONE}}
       run: echo "Hello ${{ env.TWO }}"
