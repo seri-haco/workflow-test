@@ -7,22 +7,18 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps: 
-      - run: |
+      - name: echo refs
+        run: |
           echo '1' $GITHUB_REF
           echo '2' ${{ github.ref }}
           echo '3' ${{ github.ref_name }}
           echo '4' ${{ github.head_ref }}
           echo '5' ${{ github.base_ref }}
-
-  check:
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'feat/sub1'
-    steps:
-      - run: |
+      - name: check branch
+        if: github.ref_name == 'feat/sub1'
+        run: |
+          echo "::error ::Unauthorized branch name. Branch must not be feat/sub1"
           exit 1
-
-  result:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
+      - name: succeed
+        run: |
           echo 'success'
