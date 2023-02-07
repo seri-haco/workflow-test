@@ -27,7 +27,7 @@ jobs:
         if: inputs.environment == 'prd'
         run: |
           echo ${{ github.ref_name }}
-          if [[ ${{ github.ref_name }} !~ ^feat/sub1$ ]]; then
+          if [[ ${{ github.ref_name }} =~ ^feat/sub1$ ]]; then
           # if [[ ${{ github.ref_name }} =~ ^v[0-9]+\.[0-9]+/production$ ]]; then
             echo "::error ::Unauthorized branch"
             exit 1
