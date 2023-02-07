@@ -3,7 +3,7 @@ name: check_branch
 on:
   workflow_dispatch:
     inputs:
-      name:
+      environment:
         description: 'environment'
         type: choice
         default: 'dev'
