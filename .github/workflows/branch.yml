@@ -27,11 +27,12 @@ jobs:
         if: inputs.environment == 'prd'
         run: |
           echo ${{ github.ref_name }}
-          if [[ ${{ github.ref_name }} =~ ^v[0-9]+\.[0-9]+/production$ ]]; then
+          if [[ ${{ github.ref_name }} =~ ^feat/sub[02]+$ ]]; then
+          # if [[ ${{ github.ref_name }} =~ ^v[0-9]+\.[0-9]+/production$ ]]; then
             echo "authorized=true" >> $GITHUB_OUTPUT
           fi
-      - name: check unauthorized branch
-        if: inputs.environment == 'prd' && steps.check-authorized-branch.outputs.authorized == 'true'
+      - name: exit if unauthorized branch
+        if: inputs.environment == 'prd' && steps.check-authorized-branch.outputs.authorized != 'true'
         run: |
           echo "::error ::Unauthorized branch name. Branch must not be feat/sub1"
           exit 1
