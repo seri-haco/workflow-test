@@ -5,6 +5,7 @@ on:
     inputs:
       name:
         description: 'environment'
+        type: choice
         default: 'dev'
         required: true
         options:
