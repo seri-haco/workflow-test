@@ -23,20 +23,15 @@ jobs:
           echo '3' ${{ github.ref_name }}
           echo '4' ${{ github.head_ref }}
           echo '5' ${{ github.base_ref }}
-      - name: check authorized branch
-        id: check-authorized-branch
+      - name: check branch
         if: inputs.environment == 'prd'
         run: |
           echo ${{ github.ref_name }}
-          if [[ ${{ github.ref_name }} =~ ^feat/sub[02]+$ ]]; then
+          if [[ ${{ github.ref_name }} !~ ^feat/sub1$ ]]; then
           # if [[ ${{ github.ref_name }} =~ ^v[0-9]+\.[0-9]+/production$ ]]; then
-            echo "authorized=true" >> $GITHUB_OUTPUT
+            echo "::error ::Unauthorized branch"
+            exit 1
           fi
-      - name: exit if unauthorized branch
-        if: inputs.environment == 'prd' && steps.check-authorized-branch.outputs.authorized != 'true'
-        run: |
-          echo "::error ::Unauthorized branch name. Branch must not be feat/sub1"
-          exit 1
       - name: succeed
         run: |
           echo 'success'
